@@ -1,0 +1,30 @@
+<html>
+  <head>
+  <script type="text/javascript">
+    url = ""
+    function messagesFromInjectHandler(msgEvent){
+      var messageName = msgEvent.name;
+      var messageData = msgEvent.message;
+      if(messageName === "topwindow_onload"){
+        new_url = inspectURL();
+        if(url != new_url){
+         postURL(new_url);
+        }
+      }
+    } 
+
+    function inspectURL(){
+      var activeWindow = safari.application.activeBrowserWindow;
+      var activeTab = activeWindow.activeTab;
+      var url = activeTab.url;
+      return url;
+    }
+    function postURL(new_url){
+      url = new_url;
+      safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("postURL", url);
+    }
+    safari.application.addEventListener("message", messagesFromInjectHandler, false);
+  </script>
+
+  </head>
+</html>

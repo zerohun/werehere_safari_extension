@@ -1,6 +1,6 @@
 if(window.top === window){
   safari.self.addEventListener("message", handleMessage, false);
-  $("body").append("<iframe id='post_url' src='http://localhost:3000/histories/new'></iframe>")
+  $("body").prepend("<iframe id='post_url' src='http://werehere.herokuapp.com/histories/new'></iframe>")
   $("iframe#post_url").load(function(event){
     safari.self.tab.dispatchMessage("topwindow_onload");
   });
@@ -16,7 +16,7 @@ function handleMessage(msgEvent){
 function postURL(url){
   //$("body").prepend("<p>event success</p>");
   var win = $("iframe#post_url")[0].contentWindow;
-  win.postMessage(url, "http://localhost:3000");
+  win.postMessage(url, "http://werehere.herokuapp.com/");
   //$("body").prepend("<p>sent success</p>");
 }
 
